@@ -5,17 +5,29 @@ import { Header } from '../components/Header';
 import { ScreenContainer } from '../components/ScreenContainer';
 import { Card } from '../components/Card';
 import { styles } from './HomeScreen.styles';
+import { useAppContext } from '../AppContext';
 
 export function HomeScreen() {
+  const app = useAppContext();
+
+  const currentLocationMessage = app.permissionsGranted
+    ? app.gpsOn
+      ? app.currentLocation
+        ? `${app.currentLocation.latitude}, ${app.currentLocation.longitude}`
+        : 'Obtendo localização...'
+      : 'Ative o GPS para obter sua localização.'
+    : 'Permita o acesso ao seu GPS para obter sua localização.';
+
   return (
     <ScreenContainer style={[{ paddingHorizontal: 20 }]}>
       <Header />
       <View style={styles.container}>
         <Card
+          onTap={() => app.updateCurrentLocation()}
           title="Localização Atual"
           colors={['#421664', '#7844A0']}
           centerIcon="chevron-right"
-          text="Permita o acesso ao seu GPS para obter sua localização."
+          text={currentLocationMessage}
         />
         <Card
           title="Destino"
