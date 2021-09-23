@@ -74,10 +74,9 @@ export const AppContextProvider: React.FC = ({ children }) => {
       
       const taskName = 'location-update';
       TaskManager.unregisterTaskAsync(taskName);
-      TaskManager.defineTask(taskName, () => ({
-        accuracy: Maps.Accuracy.High,
-        timeout: 1000,
-      }));
+      TaskManager.defineTask(taskName, ({ data, error }) => {
+        
+      });
     } catch (error) {
       setGpsOn(false);
       setCurrentLocation(undefined);
