@@ -10,7 +10,7 @@ export const Header = () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 36,
-    fontFamily: 'Ubuntu_700Bold',
+    fontFamily: 'Ubuntu_700Bold_Italic',
     marginBottom: 35,
   },
 });

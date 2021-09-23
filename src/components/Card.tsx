@@ -1,6 +1,6 @@
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Feather } from '@expo/vector-icons'
 
 type CardProps = {
@@ -8,38 +8,42 @@ type CardProps = {
   centerIcon?: string,
   bottomIcon?: string,
   colors: string[],
-  text: React.ReactNode,
+  text?: React.ReactNode,
   width?: string | number,
+  onTap?: () => void,
+  disabled?: boolean,
 }
 
 export function Card(props: CardProps) {
   return (
-    <LinearGradient
-          style={[styles.card, { width: props.width }]}
-          colors={props.colors}
-          end={{ x: 0.9, y: 0 }}
-        >
-      <View style={styles.cardInside}>
-        <View style={styles.cardText}>
-          <Text style={styles.cardTitle}>
-            {props.title}
-          </Text>
-          <Text style={styles.cardAddress}>
-            {props.text}
-          </Text>
+    <TouchableOpacity disabled={props.disabled} onPress={props.onTap} style={{ width: props.width }}>
+      <LinearGradient
+        style={[styles.card, props.disabled && styles.disabled]}
+        colors={props.colors}
+        end={{ x: 0.9, y: 0 }}
+      >
+        <View style={styles.cardInside}>
+          <View style={styles.cardText}>
+            <Text style={styles.cardTitle}>
+              {props.title}
+            </Text>
+            <Text style={styles.cardAddress}>
+              {props.text}
+            </Text>
+          </View>
+          {props.centerIcon && (
+            <View style={styles.cardRightCenterIcon}>
+              <Feather name={props.centerIcon as any} size={36} color="#fff" />
+            </View>
+          )}
+          {props.bottomIcon && (
+            <View style={styles.cardRightBottomIcon}>
+              <Feather name={props.bottomIcon as any} size={28} color="#fff" />
+            </View>
+          )}
         </View>
-        {props.centerIcon && (
-          <View style={styles.cardRightCenterIcon}>
-            <Feather name={props.centerIcon as any} size={36} color="#fff" />
-          </View>
-        )}
-        {props.bottomIcon && (
-          <View style={styles.cardRightBottomIcon}>
-            <Feather name={props.bottomIcon as any} size={28} color="#fff" />
-          </View>
-        )}
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </TouchableOpacity>
   )
 }
 
@@ -80,5 +84,8 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     color: '#fff',
     fontFamily: 'SourceSansPro_600SemiBold',
+  },
+  disabled: {
+    opacity: 0.35
   },
 });

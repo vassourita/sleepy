@@ -28,15 +28,14 @@ export function HomeScreen() {
             title="Ajustes"
             colors={['#CF7623', '#FFC061']}
             bottomIcon="sliders"
-            text=""
             width="47%"
           />
           <Card
             title="Iniciar"
             colors={['#AD0C80', '#FF6D76']}
             bottomIcon="play"
-            text=""
             width="47%"
+            disabled
           />
         </View>
       </View>
